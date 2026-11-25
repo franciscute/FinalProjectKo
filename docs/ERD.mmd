@@ -1,0 +1,54 @@
+erDiagram
+  USERS {
+    int UserID PK
+    varchar FullName
+    varchar Email
+    varchar PasswordHash
+    varchar Role
+    datetime CreatedAt
+    datetime UpdatedAt
+  }
+  TECHNICIANS {
+    int id PK
+    varchar Specialization
+    varchar Availability
+    int UserID FK
+    datetime createdAt
+    datetime updatedAt
+  }
+  OUTAGE_LOGS {
+    int id PK
+    varchar Area
+    datetime StartTime
+    datetime EndTime
+    varchar Status
+    datetime createdAt
+    datetime updatedAt
+  }
+  TICKETS {
+    int id PK
+    varchar IssueType
+    text Description
+    varchar Status
+    datetime ReportedAt
+    int UserID FK
+    int TechnicianID FK
+    int OutageID FK
+    datetime createdAt
+    datetime updatedAt
+  }
+  TICKET_UPDATES {
+    int id PK
+    text Remarks
+    datetime LoggedAt
+    int TicketID FK
+    int UserID FK
+    datetime createdAt
+    datetime updatedAt
+  }
+  USERS ||--o{ TECHNICIANS : has
+  USERS ||--o{ TICKETS : has
+  TECHNICIANS ||--o{ TICKETS : has
+  OUTAGE_LOGS ||--o{ TICKETS : has
+  TICKETS ||--o{ TICKET_UPDATES : has
+  USERS ||--o{ TICKET_UPDATES : has
